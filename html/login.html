@@ -9,7 +9,7 @@
     <!-- 本地资源（与主站一致） -->
     <link rel="stylesheet" href="css/pico.min.css">
     <link rel="stylesheet" href="font-awesome/css/all.min.css">
-    <script defer src="alpine.js"></script>
+    <script defer src="script/alpine.js"></script>
 
     <style>
         :root {
@@ -55,7 +55,7 @@
             margin: 0 auto;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* 只留logo，移除主题切换 */
+            justify-content: flex-start;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -77,63 +77,65 @@
             color: var(--primary) !important;
         }
 
-        /* 登录容器：加宽+紧凑内边距 */
+        /* 登录容器：进一步减小与导航栏的空白 */
         .login-container {
             flex: 1;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* 改为顶部对齐 */
             justify-content: center;
-            padding: 1.5rem 2rem;
+            padding: 0.2rem 2rem; /* 进一步减小垂直padding，从0.5rem改为0.2rem */
+            margin-top: 0; /* 确保没有上边距 */
         }
 
         .login-card {
             width: 100%;
-            max-width: 550px; /* 加宽表单（原400px） */
+            max-width: 550px;
             background: var(--bg-card) !important;
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 1.8rem; /* 紧凑内边距（原2rem） */
+            padding: 1.5rem; /* 减小卡片内边距 */
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-top: 0.5rem; /* 进一步减小上边距 */
         }
 
         .login-card h2 {
             text-align: center;
             color: var(--text-highlight) !important;
-            margin-bottom: 1.2rem !important; /* 紧凑间距 */
+            margin-bottom: 1rem !important; /* 减小标题下边距 */
             font-size: 1.4rem;
             font-weight: 600;
         }
 
-        /* 表单样式：紧凑化 */
+        /* 表单样式：进一步紧凑化 */
         .form-group {
-            margin-bottom: 0.1rem !important; /* 缩小表单组间距（原1.2rem） */
+            margin-bottom: 0.8rem !important; /* 减小表单组间距 */
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.4rem !important; /* 紧凑标签间距 */
+            margin-bottom: 0.3rem !important; /* 减小标签间距 */
             font-size: 0.85rem;
             color: var(--text-main) !important;
         }
 
-html .form-control {
-    width: 100% !important;
-    padding: 0.25rem 0.6rem !important; /* 最小垂直内边距，不贴边 */
-    border: 1px solid var(--border-color) !important;
-    border-radius: 6px !important;
-    background: var(--input-bg) !important;
-    color: var(--text-main) !important;
-    font-size: 0.85rem !important; /* 进一步缩小字体 */
-    box-sizing: border-box !important;
-    transition: border-color 0.2s ease !important;
-    line-height: 1.2 !important; /* 最小行高 */
-    min-height: unset !important; /* 清除所有最小高度限制 */
-    max-height: 42px !important; /* 限制最大高度 */
-    height: 42px !important; /* 强制固定高度（核心） */
-    appearance: none !important; /* 清除浏览器原生外观 */
-    -webkit-appearance: none !important; /* 兼容 Safari/Chrome */
-    -moz-appearance: none !important; /* 兼容 Firefox */
-}
+        html .form-control {
+            width: 100% !important;
+            padding: 0.25rem 0.6rem !important;
+            border: 1px solid var(--border-color) !important;
+            border-radius: 6px !important;
+            background: var(--input-bg) !important;
+            color: var(--text-main) !important;
+            font-size: 0.85rem !important;
+            box-sizing: border-box !important;
+            transition: border-color 0.2s ease !important;
+            line-height: 1.2 !important;
+            min-height: unset !important;
+            max-height: 42px !important;
+            height: 42px !important;
+            appearance: none !important;
+            -webkit-appearance: none !important;
+            -moz-appearance: none !important;
+        }
 
         .form-control:focus {
             outline: none !important;
@@ -143,7 +145,7 @@ html .form-control {
 
         .btn-login {
             width: 100%;
-            padding: 0.5rem; /* 紧凑按钮内边距 */
+            padding: 0.5rem;
             background: var(--primary) !important;
             border: none !important;
             border-radius: 6px !important;
@@ -152,18 +154,18 @@ html .form-control {
             font-weight: 500;
             cursor: pointer;
             transition: background 0.3s ease;
-            margin-top: 0.8rem !important; /* 紧凑间距 */
+            margin-top: 0.6rem !important; /* 减小按钮上边距 */
         }
 
         .btn-login:hover {
             background: var(--primary-hover) !important;
         }
 
-        /* 辅助链接：紧凑布局 */
+        /* 辅助链接：进一步紧凑布局 */
         .form-helper {
             display: flex;
             justify-content: space-between;
-            margin-top: 0.8rem !important; /* 紧凑间距 */
+            margin-top: 0.6rem !important; /* 减小辅助链接上边距 */
             font-size: 0.8rem;
         }
 
@@ -178,38 +180,51 @@ html .form-control {
 
         .register-link {
             text-align: center;
-            margin-top: 1rem !important; /* 紧凑间距 */
+            margin-top: 0.8rem !important; /* 减小注册链接上边距 */
             font-size: 0.85rem;
+        }
+
+        .register-link a {
+            color: var(--text-highlight) !important;
+            text-decoration: none !important;
         }
 
         /* 响应式适配：保持紧凑 */
         @media (max-width: 768px) {
             .login-card {
-                padding: 1.2rem;
+                padding: 1rem; /* 移动端进一步减小内边距 */
                 max-width: 100%;
             }
             .page-header {
                 padding: 0.8rem 1rem;
             }
             .login-container {
-                padding: 1rem;
+                padding: 0.1rem 1rem; /* 移动端进一步减小空白 */
             }
         }
     </style>
 </head>
 <body>
-    <header class="page-header">
-      <script>
-        // 加载 header
-        fetch('header.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('header-container').innerHTML = html;
-            });
-      </script>
+    <!-- 修复：添加正确的容器元素 -->
+    <header class="page-header" id="header-container">
+        <!-- 默认导航，如果加载失败就显示这个 -->
+        <nav class="container-fluid">
+            <ul>
+                <li>
+                    <a href="/" class="secondary">
+                        <img src="http://purecpp.cn/purecpp/images/cover/logo6.png" alt="PureCpp Logo">
+                        <strong>PureCpp</strong>
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li><a href="login.html">登录</a></li>
+                <li><a href="register.html">注册</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- 登录主体：加宽+紧凑 -->
+    <!-- 登录主体：进一步减小与导航栏的空白 -->
     <div class="login-container">
         <div class="login-card">
             <h2>账号登录</h2>
@@ -236,8 +251,34 @@ html .form-control {
         </div>
     </div>
 
-    <!-- 登录表单提交脚本（保留核心逻辑） -->
+    <!-- 修复：添加加载 header 的脚本 -->
     <script>
+        // 加载 header
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('header-container');
+            if (!container) {
+                console.error('找不到 header-container 元素');
+                return;
+            }
+            
+            fetch('header.html')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('HTTP error: ' + response.status);
+                    }
+                    return response.text();
+                })
+                .then(html => {
+                    container.innerHTML = html;
+                    console.log('Header 加载成功');
+                })
+                .catch(error => {
+                    console.error('加载 header 失败:', error);
+                    // 保持默认导航
+                });
+        });
+
+        // 登录表单提交脚本
         document.getElementById('loginForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const username = document.getElementById('username').value;
