@@ -52,7 +52,6 @@
             padding: 0;
         }
 
-        /* 头部导航：简化紧凑 */
         .page-header {
             max-width: 1400px;
             width: 100%;
@@ -306,7 +305,7 @@
             <ul>
                 <li>
                     <a href="/" class="secondary">
-                        <img src="http://purecpp.cn/purecpp/images/cover/logo6.png" alt="PureCpp Logo">
+                        <img src="logo.png" alt="PureCpp Logo">
                         <strong>PureCpp</strong>
                     </a>
                 </li>
@@ -320,7 +319,7 @@
 
     <!-- 注册主体：减小与导航栏的空白 -->
     <div class="register-container">
-        <div class="register-card" x-data="registerFormLogic()" x-init="init()">
+        <div class="register-card" x-data="registerFormLogic()">
             <h2>账号注册</h2>
             <p x-show="serverError" x-text="serverError"
                 style="text-align: center; margin-bottom: 0.5rem; color: var(--error-color); border: 1px solid var(--error-color); padding: 0.3rem; border-radius: 6px; font-size: 0.85rem;">
@@ -356,7 +355,8 @@
                 <div class="verify-code">
                     <div class="form-group">
                         <div class="cpp-question"
-                            x-html="`问题：<span style='color: red;'>${currentQuestion.question}</span>`"></div>
+                            x-html="`问题：<span style='color: red;'>${currentQuestion.question}</span>`">
+                        </div>
                         <!-- 输入框容器：包裹输入框 -->
                         <div class="verify-input-group">
                             <input type="text" id="verifyCode" class="form-control verify-input" placeholder="请输入"
@@ -388,28 +388,21 @@
     <!-- 修复：添加加载 header 的脚本 -->
     <script>
         // 加载 header
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', async function () {
             const container = document.getElementById('header-container');
             if (!container) {
                 console.error('找不到 header-container 元素');
                 return;
             }
 
-            fetch('header.html')
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('HTTP error: ' + response.status);
-                    }
-                    return response.text();
-                })
-                .then(html => {
-                    container.innerHTML = html;
-                    console.log('Header 加载成功');
-                })
-                .catch(error => {
-                    console.error('加载 header 失败:', error);
-                    // 保持默认导航
-                });
+            const response = await fetch('header.html');
+            if (!response.ok) {
+                console.log('Header 加载失败');
+                return;
+            }
+            const html = await response.text();
+            container.innerHTML = html;
+            console.log('Header 加载成功');
         });
 
         function registerFormLogic() {
@@ -425,20 +418,20 @@
                 isSubmitting: false,
 
                 // C++ 题库（保留你提供的内容）
-                cppQuestions: [
-                    { question: 'int a = 3; a += 5; 最终a的值是？', answer: '8' },
-                    { question: 'C++中const int* p表示p指向的内容是否可修改？（填 可/不可）', answer: '不可' },
-                    { question: 'sizeof(char)的返回值是？', answer: '1' },
-                    { question: 'int x = 5; cout << ++x; 输出结果是？', answer: '6' },
-                    { question: 'C++中声明指向int的常量指针，语法是____ int* p;（填关键字）', answer: 'const' },
-                    { question: 'bool flag = (3 && 0 || 1); flag的值是？（填1或0）', answer: '1' }
-                ],
+                questionIndex: 0,
                 currentQuestion: {},
 
                 // 初始化：随机选择C++问题
-                init() {
-                    const randomIdx = Math.floor(Math.random() * this.cppQuestions.length);
-                    this.currentQuestion = this.cppQuestions[randomIdx];
+                async init() {
+                    const response = await fetch("/api/v1/get_questions", {
+                        method: 'GET'
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.currentQuestion = data.data;
+                    } else {
+                        this.currentQuestion = "请求服务器失败";
+                    }
                 },
 
                 // 表单提交处理：保持原样

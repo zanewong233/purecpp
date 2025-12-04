@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,10 +82,13 @@
         .login-container {
             flex: 1;
             display: flex;
-            align-items: flex-start; /* 改为顶部对齐 */
+            align-items: flex-start;
+            /* 改为顶部对齐 */
             justify-content: center;
-            padding: 0.2rem 2rem; /* 进一步减小垂直padding，从0.5rem改为0.2rem */
-            margin-top: 0; /* 确保没有上边距 */
+            padding: 0.2rem 2rem;
+            /* 进一步减小垂直padding，从0.5rem改为0.2rem */
+            margin-top: 0;
+            /* 确保没有上边距 */
         }
 
         .login-card {
@@ -93,27 +97,32 @@
             background: var(--bg-card) !important;
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 1.5rem; /* 减小卡片内边距 */
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            margin-top: 0.5rem; /* 进一步减小上边距 */
+            padding: 1.5rem;
+            /* 减小卡片内边距 */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-top: 0.5rem;
+            /* 进一步减小上边距 */
         }
 
         .login-card h2 {
             text-align: center;
             color: var(--text-highlight) !important;
-            margin-bottom: 1rem !important; /* 减小标题下边距 */
+            margin-bottom: 1rem !important;
+            /* 减小标题下边距 */
             font-size: 1.4rem;
             font-weight: 600;
         }
 
         /* 表单样式：进一步紧凑化 */
         .form-group {
-            margin-bottom: 0.8rem !important; /* 减小表单组间距 */
+            margin-bottom: 0.8rem !important;
+            /* 减小表单组间距 */
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.3rem !important; /* 减小标签间距 */
+            margin-bottom: 0.3rem !important;
+            /* 减小标签间距 */
             font-size: 0.85rem;
             color: var(--text-main) !important;
         }
@@ -154,7 +163,8 @@
             font-weight: 500;
             cursor: pointer;
             transition: background 0.3s ease;
-            margin-top: 0.6rem !important; /* 减小按钮上边距 */
+            margin-top: 0.6rem !important;
+            /* 减小按钮上边距 */
         }
 
         .btn-login:hover {
@@ -165,7 +175,8 @@
         .form-helper {
             display: flex;
             justify-content: space-between;
-            margin-top: 0.6rem !important; /* 减小辅助链接上边距 */
+            margin-top: 0.6rem !important;
+            /* 减小辅助链接上边距 */
             font-size: 0.8rem;
         }
 
@@ -180,7 +191,8 @@
 
         .register-link {
             text-align: center;
-            margin-top: 0.8rem !important; /* 减小注册链接上边距 */
+            margin-top: 0.8rem !important;
+            /* 减小注册链接上边距 */
             font-size: 0.85rem;
         }
 
@@ -192,18 +204,23 @@
         /* 响应式适配：保持紧凑 */
         @media (max-width: 768px) {
             .login-card {
-                padding: 1rem; /* 移动端进一步减小内边距 */
+                padding: 1rem;
+                /* 移动端进一步减小内边距 */
                 max-width: 100%;
             }
+
             .page-header {
                 padding: 0.8rem 1rem;
             }
+
             .login-container {
-                padding: 0.1rem 1rem; /* 移动端进一步减小空白 */
+                padding: 0.1rem 1rem;
+                /* 移动端进一步减小空白 */
             }
         }
     </style>
 </head>
+
 <body>
     <!-- 修复：添加正确的容器元素 -->
     <header class="page-header" id="header-container">
@@ -212,7 +229,7 @@
             <ul>
                 <li>
                     <a href="/" class="secondary">
-                        <img src="http://purecpp.cn/purecpp/images/cover/logo6.png" alt="PureCpp Logo">
+                        <img src="logo.png" alt="PureCpp Logo">
                         <strong>PureCpp</strong>
                     </a>
                 </li>
@@ -239,7 +256,8 @@
                 </div>
                 <div class="form-helper">
                     <label>
-                        <input type="checkbox" style="vertical-align: middle; margin-right: 0.3rem; font-size: 0.8rem;"> 记住我
+                        <input type="checkbox" style="vertical-align: middle; margin-right: 0.3rem; font-size: 0.8rem;">
+                        记住我
                     </label>
                     <a href="/forgot-password.html">忘记密码？</a>
                 </div>
@@ -254,13 +272,13 @@
     <!-- 修复：添加加载 header 的脚本 -->
     <script>
         // 加载 header
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const container = document.getElementById('header-container');
             if (!container) {
                 console.error('找不到 header-container 元素');
                 return;
             }
-            
+
             fetch('header.html')
                 .then(response => {
                     if (!response.ok) {
@@ -279,11 +297,11 @@
         });
 
         // 登录表单提交脚本
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-            
+
             // 模拟登录验证（实际项目替换为接口请求）
             if (username && password) {
                 alert(`登录成功！欢迎 ${username}`);
@@ -294,4 +312,5 @@
         });
     </script>
 </body>
+
 </html>

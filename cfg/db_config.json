@@ -1,6 +1,6 @@
 {
    "db_ip": "127.0.0.1",
-   "db_port": 6379,
+   "db_port": 3306,
    "db_name": "purecpp",
    "db_user_name": "root",
    "db_pwd": "12345",

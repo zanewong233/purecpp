@@ -1,10 +1,13 @@
 #include <cinatra.hpp>
 
+#include <algorithm>
 #include <filesystem>
 #include <iguana/json_reader.hpp>
 #include <iguana/json_writer.hpp>
 #include <iguana/prettify.hpp>
 #include <iostream>
+#include <random>
+#include <vector>
 
 #include "entity.hpp"
 
@@ -53,13 +56,15 @@ struct rest_data {
   std::string email;
   bool verification_required;
 };
+
+template<typename T>
 struct rest_response {
-  bool success;
+  bool success = true;
   std::string message;
   std::optional<std::vector<std::string>> errors;
-  std::optional<rest_data> data;
+  std::optional<T> data;
   std::string timestamp;
-  int code;
+  int code = 200;
 };
 
 // database
@@ -94,8 +99,47 @@ void init_db() {
   std::cout << vec.size() << "\n";
 }
 
+const std::vector<std::string_view> cpp_questions{
+    "C++中声明指向int的常量指针, 语法是____ int* "
+    "p。(请把空白部分的代码补充完整)",
+    "sizeof(uint64_t)的返回值是?",
+    "请输入C++中共享的智能指针。std::____ (请把空白部分的代码补充完整)",
+    "请输入C++中独占的智能指针。std::____ (请把空白部分的代码补充完整)",
+    "auto foo(){return new int(1);} void "
+    "call_foo(){foo();} 这个call_foo函数有什么问题? ",
+    "std::string str; str.reserve(100); 这个str的长度是多少?"};
+
+const std::vector<std::string_view> cpp_answers{
+    "const", "8", "shared_ptr", "unique_ptr", "内存泄漏", "0"};
+
+size_t get_question_index() {
+  static unsigned seed =
+      std::chrono::system_clock::now().time_since_epoch().count();
+  static std::mt19937 generator(seed);
+
+  std::uniform_int_distribution<size_t> distribution(0,
+                                                     cpp_questions.size() - 1);
+  size_t random_index = distribution(generator);
+  return random_index;
+}
+
+bool valid_question(size_t index, std::string_view answer) {
+  if (index >= cpp_answers.size()) {
+    std::cout << "invalid index\n";
+    return false;
+  }
+
+  return cpp_answers[index] == answer;
+}
+
+struct question_resp {
+  size_t index;
+  std::string_view question;
+};
+
 int main() {
   init_db();
+  auto &db_pool = connection_pool<dbng<mysql>>::instance();
 
   coro_http_server server(std::thread::hardware_concurrency(), 3389);
   server.set_file_resp_format_type(file_resp_format_type::chunked);
@@ -104,9 +148,22 @@ int main() {
       "/", [](coro_http_request &req, coro_http_response &resp) {
         resp.set_status_and_content(status_type::ok, "hello purecpp");
       });
-  server.set_http_handler<GET, POST>(
+  server.set_http_handler<GET>(
+      "/api/v1/get_questions",
+      [](coro_http_request &req, coro_http_response &resp) {
+        size_t random_index = get_question_index();
+        question_resp question{random_index, cpp_questions[random_index]};
+        rest_response<question_resp> data{};
+        data.data = question;
+
+        std::string json;
+        iguana::to_json(data, json);
+        resp.set_content_type<resp_content_type::json>();
+        resp.set_status_and_content(status_type::ok, std::move(json));
+      });
+  server.set_http_handler<POST>(
       "/api/v1/register", [](coro_http_request &req, coro_http_response &resp) {
-        rest_response data{};
+        rest_response<rest_data> data{};
         // data.success = true;
         // data.message = "注册成功";
         // data.data = rest_data{1, "tom", "example@163.com", true};
@@ -116,6 +173,8 @@ int main() {
 
         std::string json;
         iguana::to_json(data, json);
+
+        resp.add_header("x-content-type-options", "nosniff");
         resp.set_status_and_content(status_type::bad_request, std::move(json));
       });
   server.sync_start();

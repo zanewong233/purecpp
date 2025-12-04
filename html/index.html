@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,16 +41,19 @@
             --text-typing: #f3f4f6;
             --text-main: #f3f4f6;
             --text-highlight: #818cf8;
-            --logo-filter: invert(1) hue-rotate(180deg) brightness(1.8); /* logo反转调亮 */
+            --logo-filter: invert(1) hue-rotate(180deg) brightness(1.8);
+            /* logo反转调亮 */
         }
 
         /* 浅色模式变量（手动切换时覆盖） */
         :root.light {
-            --logo-filter: none; /* 浅色模式不反转logo */
+            --logo-filter: none;
+            /* 浅色模式不反转logo */
         }
 
         /* 核心布局：外层容器统一留白，内部模块满宽 */
-        .page-wrapper, .footer-content {
+        .page-wrapper,
+        .footer-content {
             max-width: 1200px !important;
             width: 100% !important;
             padding: 0 1.5rem !important;
@@ -57,7 +61,11 @@
         }
 
         /* 内部模块统一满宽无额外边距 */
-        nav.container-fluid, .announcement, .hero, .card-section, .stats {
+        nav.container-fluid,
+        .announcement,
+        .hero,
+        .card-section,
+        .stats {
             max-width: 100% !important;
             width: 100% !important;
             margin: 0 !important;
@@ -70,24 +78,34 @@
             margin-left: auto !important;
             margin-right: 0 !important;
         }
+
         nav .contrast {
-            background: var(--primary) !important; /* 与Hero区域注册按钮背景色一致 */
+            background: var(--primary) !important;
+            /* 与Hero区域注册按钮背景色一致 */
             border-color: var(--primary) !important;
-            color: white !important; /* 文字色保持白色，确保对比 */
+            color: white !important;
+            /* 文字色保持白色，确保对比 */
         }
+
         nav .contrast:hover {
-            background: var(--primary-hover) !important; /* 复用hover深色，与Hero区域一致 */
+            background: var(--primary-hover) !important;
+            /* 复用hover深色，与Hero区域一致 */
             border-color: var(--primary-hover) !important;
         }
+
         .hero .contrast {
             padding: 0.5rem 1rem !important;
             font-size: 0.9rem;
-            background: var(--primary) !important; /* 与导航栏注册按钮背景色一致 */
+            background: var(--primary) !important;
+            /* 与导航栏注册按钮背景色一致 */
             border-color: var(--primary) !important;
-            color: white !important; /* 文字色保持白色，确保对比 */
+            color: white !important;
+            /* 文字色保持白色，确保对比 */
         }
+
         .hero .contrast:hover {
-            background: var(--primary-hover) !important; /* 复用hover深色，与导航栏一致 */
+            background: var(--primary-hover) !important;
+            /* 复用hover深色，与导航栏一致 */
             border-color: var(--primary-hover) !important;
         }
 
@@ -99,6 +117,7 @@
             height: 36px !important;
             vertical-align: middle !important;
         }
+
         nav .secondary strong {
             font-size: 20px !important;
             color: var(--primary) !important;
@@ -114,11 +133,14 @@
             text-align: center !important;
             margin-bottom: 1rem !important;
         }
-        .hero h1, .hero p {
+
+        .hero h1,
+        .hero p {
             color: white !important;
             margin: 0 auto 0.5rem !important;
             max-width: 100% !important;
         }
+
         .hero .lead {
             color: var(--text-typing) !important;
             font-size: 0.9rem !important;
@@ -126,16 +148,19 @@
             font-family: "JetBrains Mono", "Fira Code", Consolas, "Courier New", monospace !important;
             font-weight: 400 !important;
         }
+
         .hero .slogan-highlight {
             font-size: 1.1rem !important;
             font-weight: 600 !important;
             color: var(--primary) !important;
             letter-spacing: 0.05em !important;
         }
+
         .hero .contrast {
             padding: 0.5rem 1rem !important;
             font-size: 0.9rem !important;
         }
+
         .hero-section {
             color: var(--text-highlight) !important;
         }
@@ -147,47 +172,96 @@
             gap: 4px;
             overflow: hidden;
         }
-/* 打字文本：统一动画参数，确保打字节奏一致 */
-.typing-text {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 0;
-    color: var(--text-typing) !important;
-    caret-color: transparent !important; /* 隐藏默认光标（解决双重光标） */
-    animation: typing 2s steps(35, end) forwards; /* 步长35，打字更平滑 */
-}
 
-.typing-text.line1 { animation-delay: 0.5s; } /* 初始延迟0.5s，不突兀 */
-.typing-text.line2 { animation-delay: 2.8s; } /* line1结束+过渡，衔接自然 */
+        /* 打字文本：统一动画参数，确保打字节奏一致 */
+        .typing-text {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            color: var(--text-typing) !important;
+            caret-color: transparent !important;
+            /* 隐藏默认光标（解决双重光标） */
+            animation: typing 2s steps(35, end) forwards;
+            /* 步长35，打字更平滑 */
+        }
 
-/* 光标：严格跟随打字节奏，打字时显示，不打字时隐藏 */
-.typing-cursor {
-    color: var(--primary) !important;
-    font-weight: bold;
-    font-size: 0.9rem !important;
-    opacity: 0; /* 初始隐藏 */
-    /* line1光标：与line1打字同时显示，打字结束后立即消失 */
-    animation: 
-        show-cursor 0s 0.5s forwards, /* 0.5s时（line1开始打字）显示光标 */
-        blink 1s step-end infinite 0.5s, /* 同步闪烁 */
-        fade-out 0s 2.5s forwards; /* 2.5s时（line1打字结束）隐藏光标 */
-}
+        .typing-text.line1 {
+            animation-delay: 0.5s;
+        }
 
-.typing-cursor.line2-cursor {
-    opacity: 0; /* 初始隐藏 */
-    /* line2光标：与line2打字同时显示，打字结束后立即消失 */
-    animation: 
-        show-cursor 0s 2.8s forwards, /* 2.8s时（line2开始打字）显示光标 */
-        blink 1s step-end infinite 2.8s, /* 同步闪烁 */
-        fade-out 0s 5s forwards; /* 5s时（line2打字结束）隐藏光标 */
-}
+        /* 初始延迟0.5s，不突兀 */
+        .typing-text.line2 {
+            animation-delay: 2.8s;
+        }
 
-/* 核心动画：打字、光标闪烁、显示/隐藏 */
-@keyframes typing { from { width: 0; } to { width: 100%; } }
-@keyframes blink { from, to { opacity: 1; } 50% { opacity: 0; } }
-@keyframes fade-out { to { opacity: 0; visibility: hidden; } }
-@keyframes show-cursor { to { opacity: 1; } }
+        /* line1结束+过渡，衔接自然 */
+
+        /* 光标：严格跟随打字节奏，打字时显示，不打字时隐藏 */
+        .typing-cursor {
+            color: var(--primary) !important;
+            font-weight: bold;
+            font-size: 0.9rem !important;
+            opacity: 0;
+            /* 初始隐藏 */
+            /* line1光标：与line1打字同时显示，打字结束后立即消失 */
+            animation:
+                show-cursor 0s 0.5s forwards,
+                /* 0.5s时（line1开始打字）显示光标 */
+                blink 1s step-end infinite 0.5s,
+                /* 同步闪烁 */
+                fade-out 0s 2.5s forwards;
+            /* 2.5s时（line1打字结束）隐藏光标 */
+        }
+
+        .typing-cursor.line2-cursor {
+            opacity: 0;
+            /* 初始隐藏 */
+            /* line2光标：与line2打字同时显示，打字结束后立即消失 */
+            animation:
+                show-cursor 0s 2.8s forwards,
+                /* 2.8s时（line2开始打字）显示光标 */
+                blink 1s step-end infinite 2.8s,
+                /* 同步闪烁 */
+                fade-out 0s 5s forwards;
+            /* 5s时（line2打字结束）隐藏光标 */
+        }
+
+        /* 核心动画：打字、光标闪烁、显示/隐藏 */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+
+            from,
+            to {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fade-out {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes show-cursor {
+            to {
+                opacity: 1;
+            }
+        }
 
         /* 公告栏 */
         .announcement {
@@ -197,34 +271,64 @@
             padding: 0.3rem !important;
             margin: 0.5rem 0 !important;
         }
+
         .announcement-row {
             display: grid;
             grid-template-columns: 1fr auto;
             gap: 1rem;
             align-items: center;
         }
+
         .announcement-container {
             position: relative;
             overflow: hidden;
             height: 24px;
         }
+
         .announcement-scroll {
             animation: scroll-up 15s linear infinite;
         }
-        .announcement-scroll:hover { animation-play-state: paused; }
+
+        .announcement-scroll:hover {
+            animation-play-state: paused;
+        }
+
         .announcement-item {
             height: 24px;
             display: flex;
             align-items: center;
             color: var(--text-main) !important;
         }
-        .announcement-item strong { color: var(--text-highlight) !important; }
+
+        .announcement-item strong {
+            color: var(--text-highlight) !important;
+        }
+
         @keyframes scroll-up {
-            0%,20% { transform: translateY(0); }
-            25%,45% { transform: translateY(-24px); }
-            50%,70% { transform: translateY(-48px); }
-            75%,95% { transform: translateY(-72px); }
-            100% { transform: translateY(0); }
+
+            0%,
+            20% {
+                transform: translateY(0);
+            }
+
+            25%,
+            45% {
+                transform: translateY(-24px);
+            }
+
+            50%,
+            70% {
+                transform: translateY(-48px);
+            }
+
+            75%,
+            95% {
+                transform: translateY(-72px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
         }
 
         /* 搜索框 */
@@ -233,6 +337,7 @@
             min-width: 300px;
             height: 36px;
         }
+
         .search-box input {
             border: 1px solid var(--border-color) !important;
             border-radius: 4px !important;
@@ -244,6 +349,7 @@
             height: 100% !important;
             box-sizing: border-box !important;
         }
+
         .search-icon {
             position: absolute;
             right: 0.75rem;
@@ -256,6 +362,7 @@
             padding: 0.25rem;
             border-radius: 3px;
         }
+
         .search-icon:hover {
             color: var(--primary);
             background: rgba(79, 70, 229, 0.1);
@@ -271,6 +378,7 @@
             padding: 0 !important;
             width: 100% !important;
         }
+
         .card {
             border: 1px solid var(--border-color);
             border-radius: 8px;
@@ -282,11 +390,13 @@
             flex-direction: column;
             margin: 0 !important;
         }
+
         .card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-color: var(--primary);
         }
+
         .card h3 {
             color: var(--text-highlight) !important;
             margin-bottom: 0.5rem !important;
@@ -295,6 +405,7 @@
             gap: 0.5rem;
             font-size: 1rem;
         }
+
         .card p {
             line-height: 1.4;
             font-size: 0.85rem;
@@ -302,10 +413,12 @@
             margin-bottom: 0.5rem !important;
             color: var(--text-main) !important;
         }
+
         .feature-icon {
             font-size: 1.1rem;
             color: var(--primary);
         }
+
         .card small {
             color: var(--primary) !important;
             display: flex;
@@ -321,8 +434,9 @@
             padding: 1rem 0 !important;
             margin: 1rem 0 !important;
             border-radius: 10px !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -330,6 +444,7 @@
             text-align: center;
             padding: 0 1rem !important;
         }
+
         .stat-number {
             font-size: 1.5rem;
             font-weight: bold;
@@ -337,7 +452,10 @@
             display: block;
             margin-bottom: 0.2rem !important;
         }
-        .stats-grid div { color: var(--text-main) !important; }
+
+        .stats-grid div {
+            color: var(--text-main) !important;
+        }
 
         /* 通用标题 */
         section h2 {
@@ -353,6 +471,7 @@
             border-top: 1px solid var(--border-color);
             background: var(--bg-page) !important;
         }
+
         .footer-grid {
             display: grid;
             align-items: center !important;
@@ -361,12 +480,14 @@
             grid-template-columns: auto auto auto !important;
             width: 100% !important;
         }
+
         .footer-content p {
             margin: 0 !important;
             font-size: 0.8rem !important;
             color: var(--muted-color) !important;
             line-height: 1 !important;
         }
+
         .footer-content ul {
             display: flex;
             gap: 1.2rem;
@@ -376,20 +497,26 @@
             align-items: center;
             line-height: 1 !important;
         }
+
         .footer-content a {
             font-size: 0.8rem !important;
             color: var(--muted-color) !important;
             text-decoration: none !important;
             line-height: 1 !important;
         }
-        .footer-content a:hover { color: var(--primary) !important; }
+
+        .footer-content a:hover {
+            color: var(--primary) !important;
+        }
 
         /* 社交链接 */
-        .footer-content .fa-weixin, .footer-content .fa-github {
+        .footer-content .fa-weixin,
+        .footer-content .fa-github {
             font-size: 1.1rem !important;
             color: var(--text-highlight) !important;
             line-height: 1 !important;
         }
+
         .footer-content .wechat-link {
             display: flex !important;
             align-items: center !important;
@@ -406,6 +533,7 @@
             margin-left: 1rem !important;
             line-height: 1 !important;
         }
+
         .toggle-switch {
             position: relative !important;
             display: inline-block !important;
@@ -413,11 +541,13 @@
             height: 24px !important;
             cursor: pointer !important;
         }
+
         .toggle-switch input {
             opacity: 0 !important;
             width: 0 !important;
             height: 0 !important;
         }
+
         .toggle-slider {
             position: absolute !important;
             top: 0 !important;
@@ -429,7 +559,8 @@
             transition: background-color 0.3s ease !important;
             border: 1px solid #999 !important;
         }
-        .toggle-slider > span {
+
+        .toggle-slider>span {
             position: absolute !important;
             left: 2px !important;
             bottom: 2px !important;
@@ -438,10 +569,12 @@
             background-color: white !important;
             border-radius: 50% !important;
             transition: left 0.3s ease !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
             z-index: 1 !important;
         }
-        .fa-sun, .fa-moon {
+
+        .fa-sun,
+        .fa-moon {
             position: absolute !important;
             top: 50% !important;
             transform: translateY(-50%) !important;
@@ -449,27 +582,33 @@
             transition: opacity 0.3s ease !important;
             z-index: 2 !important;
         }
+
         .fa-sun {
             left: 8px !important;
             color: #4f46e5 !important;
         }
+
         .fa-moon {
             right: 8px !important;
             color: #fff !important;
         }
+
         /* 主题切换状态（合并精简） */
-        #themeToggleBtn:checked + .toggle-slider {
+        #themeToggleBtn:checked+.toggle-slider {
             background-color: #333 !important;
         }
-        #themeToggleBtn:checked + .toggle-slider > span {
+
+        #themeToggleBtn:checked+.toggle-slider>span {
             left: 24px !important;
         }
-        #themeToggleBtn:checked + .toggle-slider .fa-sun,
-        #themeToggleBtn:not(:checked) + .toggle-slider .fa-moon {
+
+        #themeToggleBtn:checked+.toggle-slider .fa-sun,
+        #themeToggleBtn:not(:checked)+.toggle-slider .fa-moon {
             opacity: 0 !important;
         }
-        #themeToggleBtn:checked + .toggle-slider .fa-moon,
-        #themeToggleBtn:not(:checked) + .toggle-slider .fa-sun {
+
+        #themeToggleBtn:checked+.toggle-slider .fa-moon,
+        #themeToggleBtn:not(:checked)+.toggle-slider .fa-sun {
             opacity: 1 !important;
         }
 
@@ -480,14 +619,36 @@
                 gap: 1.5rem !important;
                 text-align: center !important;
             }
-            .theme-toggle { margin-left: 0 !important; justify-content: center !important; }
-            .announcement-row { grid-template-columns: 1fr !important; gap: 0.5rem !important; }
-            .search-box { min-width: 100% !important; }
-            .page-wrapper, .footer-content { padding: 0 1rem !important; }
+
+            .theme-toggle {
+                margin-left: 0 !important;
+                justify-content: center !important;
+            }
+
+            .announcement-row {
+                grid-template-columns: 1fr !important;
+                gap: 0.5rem !important;
+            }
+
+            .search-box {
+                min-width: 100% !important;
+            }
+
+            .page-wrapper,
+            .footer-content {
+                padding: 0 1rem !important;
+            }
         }
+
         @media (max-width: 768px) {
-            .typing-text { animation: typing 1.8s steps(25, end) forwards !important; }
-            .typing-text.line2 { animation-delay: 1.8s !important; }
+            .typing-text {
+                animation: typing 1.8s steps(25, end) forwards !important;
+            }
+
+            .typing-text.line2 {
+                animation-delay: 1.8s !important;
+            }
+
             .typing-cursor.line2-cursor {
                 animation: show-cursor 0s 1.8s forwards, blink 1s step-end infinite 1.8s, fade-out 0s 3.6s forwards !important;
             }
@@ -509,7 +670,7 @@
             <ul>
                 <li>
                     <a href="/" class="secondary">
-                        <img src="http://purecpp.cn/purecpp/images/cover/logo6.png" alt="PureCpp Logo">
+                        <img src="logo.png" alt="PureCpp Logo">
                         <strong>PureCpp</strong>
                     </a>
                 </li>
@@ -521,7 +682,9 @@
                 <li><a href="#review">Code Review</a></li>
                 <li><a href="#conference">Purecpp大会</a></li>
                 <li><a href="login.html">登录</a></li>
-                <li><a href="register.html" role="button" class="contrast" style="padding: 0.3rem 0.5rem !important; font-size: 0.85rem !important; height: auto !important;">注册</a></li>
+                <li><a href="register.html" role="button" class="contrast"
+                        style="padding: 0.3rem 0.5rem !important; font-size: 0.85rem !important; height: auto !important;">注册</a>
+                </li>
             </ul>
         </nav>
 
@@ -579,69 +742,69 @@
             <section class="card-section">
                 <div class="card-grid">
                     <article class="card">
-                      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
-                        <div class="feature-icon">
-                            <i class="fas fa-lightbulb"></i>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
+                            <div class="feature-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h3>技术文章</h3>
                         </div>
-                        <h3>技术文章</h3>
-                      </div>
-                      <p>聚焦最新的C++技术、最佳技术实践；发现、贡献或启动您的下一个开源项目。</p>
-                      <small><i class="fas fa-sync-alt"></i> 每周更新</small>
+                        <p>聚焦最新的C++技术、最佳技术实践；发现、贡献或启动您的下一个开源项目。</p>
+                        <small><i class="fas fa-sync-alt"></i> 每周更新</small>
                     </article>
 
                     <article class="card">
-                      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
-                        <div class="feature-icon">
-                            <i class="fas fa-question-circle"></i>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
+                            <div class="feature-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h3>问答</h3>
                         </div>
-                        <h3>问答</h3>
-                      </div>
-                      <p>遇到技术难题？在这里提问，获得社区专家的快速、高质量解答。</p>
-                      <small><i class="fas fa-check-circle"></i> 98% 3天内解决</small>
+                        <p>遇到技术难题？在这里提问，获得社区专家的快速、高质量解答。</p>
+                        <small><i class="fas fa-check-circle"></i> 98% 3天内解决</small>
                     </article>
 
                     <article class="card">
-                      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
-                        <div class="feature-icon">
-                            <i class="fas fa-comments"></i>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
+                            <div class="feature-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>C++ 聊天室</h3>
                         </div>
-                        <h3>C++ 聊天室</h3>
-                      </div>
-                      <p>实时讨论技术话题，建立连接，享受轻松的社区生活。</p>
-                      <small><i class="fas fa-users"></i> 在线 1.2k 人</small>
+                        <p>实时讨论技术话题，建立连接，享受轻松的社区生活。</p>
+                        <small><i class="fas fa-users"></i> 在线 1.2k 人</small>
                     </article>
 
                     <article class="card">
-                      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
-                        <div class="feature-icon">
-                            <i class="fas fa-calendar-alt"></i>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
+                            <div class="feature-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h3>Purecpp 大会</h3>
                         </div>
-                        <h3>Purecpp 大会</h3>
-                      </div>
-                      <p>定期举办线上/线下技术分享会，学习最新技术趋势。</p>
-                      <small><i class="fas fa-edit"></i> 进行中</small>
+                        <p>定期举办线上/线下技术分享会，学习最新技术趋势。</p>
+                        <small><i class="fas fa-edit"></i> 进行中</small>
                     </article>
 
                     <article class="card">
-                       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
-                        <div class="feature-icon">
-                            <i class="fas fa-code"></i>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
+                            <div class="feature-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Code Review</h3>
                         </div>
-                        <h3>Code Review</h3>
-                       </div>
-                       <p>提交您的代码，接受同行评审，提升代码质量和最佳实践。</p>
-                       <small><i class="fas fa-chart-bar"></i> 127 次审查</small>
+                        <p>提交您的代码，接受同行评审，提升代码质量和最佳实践。</p>
+                        <small><i class="fas fa-chart-bar"></i> 127 次审查</small>
                     </article>
 
                     <article class="card">
-                       <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
-                        <div class="feature-icon">
-                            <i class="fas fa-hands-helping"></i>
+                        <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem !important;">
+                            <div class="feature-icon">
+                                <i class="fas fa-hands-helping"></i>
+                            </div>
+                            <h3>社区服务</h3>
                         </div>
-                        <h3>社区服务</h3>
-                       </div>
-                       <p>招聘、内推、项目组队，我们致力于推动C++技术生态发展。</p>
-                       <small><i class="fas fa-star"></i> 为程序员服务</small>
+                        <p>招聘、内推、项目组队，我们致力于推动C++技术生态发展。</p>
+                        <small><i class="fas fa-star"></i> 为程序员服务</small>
                     </article>
                 </div>
             </section>
@@ -671,84 +834,85 @@
     </div>
 
     <!-- 页脚 -->
-<footer>
-    <div class="footer-content">
-        <div class="footer-grid">
-            <!-- 左列：版权信息 -->
-            <div style="text-align: center;">
-                <p>© 2025 PureCpp.cn 京ICP备 2025xxxx号</p>
-            </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-grid">
+                <!-- 左列：版权信息 -->
+                <div style="text-align: center;">
+                    <p>© 2025 PureCpp.cn 京ICP备 2025xxxx号</p>
+                </div>
 
-            <!-- 中列：导航链接 + 主题按钮 -->
-            <div>
-                <ul>
-                    <li><a href="/about">关于我们</a></li>
-                    <li><a href="/rules">社区守则</a></li>
-                    <li><a href="/contact">联系我们</a></li>
-                    <li><a href="/links">友情链接</a></li>
-                    <!-- 主题切换按钮 -->
-                    <li class="theme-toggle">
-                        <span>主题切换</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" id="themeToggleBtn">
-                            <span class="toggle-slider">
-                                <span></span>
-                                <i class="fas fa-sun"></i>
-                                <i class="fas fa-moon"></i>
-                            </span>
-                        </label>
-                    </li>
-                </ul>
-            </div>
+                <!-- 中列：导航链接 + 主题按钮 -->
+                <div>
+                    <ul>
+                        <li><a href="/about">关于我们</a></li>
+                        <li><a href="/rules">社区守则</a></li>
+                        <li><a href="/contact">联系我们</a></li>
+                        <li><a href="/links">友情链接</a></li>
+                        <!-- 主题切换按钮 -->
+                        <li class="theme-toggle">
+                            <span>主题切换</span>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="themeToggleBtn">
+                                <span class="toggle-slider">
+                                    <span></span>
+                                    <i class="fas fa-sun"></i>
+                                    <i class="fas fa-moon"></i>
+                                </span>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
 
-            <!-- 右列：微信公众号 + GitHub -->
-            <div style="display: flex; align-items: center; gap: 1.5rem;">
-                <a href="#" title="微信公众号" class="wechat-link">
-                    <i class="fab fa-weixin"></i>
-                </a>
-                <a href="#" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
+                <!-- 右列：微信公众号 + GitHub -->
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <a href="#" title="微信公众号" class="wechat-link">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                    <a href="#" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-</footer>
+    </footer>
 
-<!-- 核心脚本 -->
-<script>
-// 1. 搜索功能
-function performSearch() {
-    const input = document.querySelector('.search-box input');
-    const keyword = input.value.trim();
-    keyword ? alert(`搜索关键词：${keyword}（实际项目中替换为搜索接口）`) : alert('请输入搜索关键词');
-}
+    <!-- 核心脚本 -->
+    <script>
+        // 1. 搜索功能
+        function performSearch() {
+            const input = document.querySelector('.search-box input');
+            const keyword = input.value.trim();
+            keyword ? alert(`搜索关键词：${keyword}（实际项目中替换为搜索接口）`) : alert('请输入搜索关键词');
+        }
 
-// 2. 主题切换逻辑（精简后）
-const themeToggleBtn = document.getElementById('themeToggleBtn');
-const THEME_STORAGE_KEY = 'purecpp_theme';
-const htmlRoot = document.documentElement;
+        // 2. 主题切换逻辑（精简后）
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const THEME_STORAGE_KEY = 'purecpp_theme';
+        const htmlRoot = document.documentElement;
 
-// 初始化主题
-function initTheme() {
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    const isDarkMode = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    themeToggleBtn.checked = isDarkMode;
-    htmlRoot.classList.add('manual-theme');
-    htmlRoot.classList.toggle('dark', isDarkMode);
-    htmlRoot.classList.toggle('light', !isDarkMode);
-}
+        // 初始化主题
+        function initTheme() {
+            const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+            const isDarkMode = savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            themeToggleBtn.checked = isDarkMode;
+            htmlRoot.classList.add('manual-theme');
+            htmlRoot.classList.toggle('dark', isDarkMode);
+            htmlRoot.classList.toggle('light', !isDarkMode);
+        }
 
-// 切换主题
-function toggleTheme() {
-    const isDarkMode = themeToggleBtn.checked;
-    htmlRoot.classList.toggle('dark', isDarkMode);
-    htmlRoot.classList.toggle('light', !isDarkMode);
-    localStorage.setItem(THEME_STORAGE_KEY, isDarkMode ? 'dark' : 'light');
-}
+        // 切换主题
+        function toggleTheme() {
+            const isDarkMode = themeToggleBtn.checked;
+            htmlRoot.classList.toggle('dark', isDarkMode);
+            htmlRoot.classList.toggle('light', !isDarkMode);
+            localStorage.setItem(THEME_STORAGE_KEY, isDarkMode ? 'dark' : 'light');
+        }
 
-// 初始化 + 绑定事件
-initTheme();
-themeToggleBtn.addEventListener('change', toggleTheme);
-</script>
+        // 初始化 + 绑定事件
+        initTheme();
+        themeToggleBtn.addEventListener('change', toggleTheme);
+    </script>
 </body>
+
 </html>
