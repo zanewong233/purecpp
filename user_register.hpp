@@ -25,7 +25,7 @@ public:
     users_t user{.id = 0,
                  .user_name = info.username,
                  .email = info.email,
-                 .pwd_hash = info.username,
+                 .pwd_hash = info.password,
                  .is_verifyed = false,
                  .created_at = get_timestamp_milliseconds(),
                  .last_active_at = 0};
@@ -34,8 +34,8 @@ public:
     rest_response<user_resp_data> data{};
     data.success = true;
     data.message = "注册成功";
-    data.data = user_resp_data{id, info.username, info.username,
-                               bool(user.is_verifyed)};
+    data.data =
+        user_resp_data{id, info.username, info.email, bool(user.is_verifyed)};
 
     std::string json;
     iguana::to_json(data, json);
